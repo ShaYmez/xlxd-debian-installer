@@ -22,8 +22,9 @@ XLXDREPO=https://github.com/LX3JL/xlxd.git
 DMRIDURL=http://xlxapi.rlx.lu/api/exportdmr.php
 WEBDIR=/var/www/xlxd
 XLXINSTDIR=/root/reflector-install-files/xlxd
-DEP="git build-essential g++ apache2 php libapache2-mod-php php7.3-mbstring"
-DEP2="git build-essential g++ apache2 php libapache2-mod-php php7.4-mbstring"
+DEP="git build-essential g++ apache2 php libapache2-mod-php php7.0-mbstring"
+DEP2="git build-essential g++ apache2 php libapache2-mod-php php7.3-mbstring"
+DEP3="build-essential g++ apache2 php libapache2-mod-php php7.4-mbstring"
 VERSION=$(sed 's/\..*//' /etc/debian_version)
 clear
 echo ""
@@ -54,6 +55,9 @@ then
 elif [ $VERSION = 10 ]
 then
     apt-get -y install $DEP2
+elif [ $VERSION = 11 ]
+then
+    apt-get -y install $DEP3
 fi
 
 echo "------------------------------------------------------------------------------"
