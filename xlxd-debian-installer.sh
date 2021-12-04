@@ -24,16 +24,16 @@ WEBDIR=/var/www/xlxd
 XLXINSTDIR=/root/reflector-install-files/xlxd
 DEP="git build-essential g++ apache2 php libapache2-mod-php php7.0-mbstring"
 DEP2="git build-essential g++ apache2 php libapache2-mod-php php7.3-mbstring"
-DEP3="build-essential g++ apache2 php libapache2-mod-php php-curl php-json php-cgi"
+DEP3="build-essential g++ apache2 php libapache2-mod-php php-curl php-json php-cgi snapd"
 VERSION=$(sed 's/\..*//' /etc/debian_version)
 clear
 echo ""
-echo "XLX uses 3 digit numbers for its reflectors. For example: 032, 999, 099."
+echo "XLX uses 3 digit numbers for its reflectors. For example: 248, 999, 099."
 read -p "What 3 digit XRF number will you be using?  " XRFDIGIT
 XRFNUM=XLX$XRFDIGIT
 echo ""
 echo "--------------------------------------"
-read -p "What is the FQDN of the XLX Reflector dashboard? Example: xlx.domain.com.  " XLXDOMAIN
+read -p "What is the FQDN of the XLX Reflector dashboard? Example: xlx999.domain.com.  " XLXDOMAIN
 echo ""
 echo "--------------------------------------"
 read -p "What E-Mail address can your users send questions to?  " EMAIL
@@ -115,6 +115,24 @@ sed -i "s/ysf-xlxd/xlxd/g" /etc/apache2/sites-available/$XLXDOMAIN.conf
 chown -R www-data:www-data /var/www/xlxd/
 chown -R www-data:www-data /xlxd/
 a2ensite $XLXDOMAIN
+systemctl restart apache2
+if [ $VERSION = 11 ]
+then
+    snap install core
+    snap refresh core
+    snap install --classic certbot
+    ln -s /snap/bin/certbot /usr/bin/certbot
+    certbot --apache
+else
+   echo ""
+   echo "Ahh! Somthing went wrong with the cerbot application, your SSL certificate"
+   echo "The output above is the only indication as to why it might have failed.  "
+   echo "Run certbot --apache again to restart certbot installation"
+   echo ""
+   exit 0
+fi
+ufw allow http
+ufw allow https
 service xlxd start
 systemctl restart apache2
 echo "------------------------------------------------------------------------------"
