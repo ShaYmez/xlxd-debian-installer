@@ -70,7 +70,7 @@ else
    echo "Downloading and compiling LX4JL XLXD... "
    echo "------------------------------------------------------------------------------"
    cd $XLXINSTDIR
-   figlet "XLXD Installer.
+   figlet "XLXD Installer."
    git clone $XLXDREPO
    cd $XLXINSTDIR/xlxd/src
    make clean
@@ -142,7 +142,7 @@ fi
 clear
 echo "Starting XLXD.....
 sleep 2
-figlet "XLXD Reflector
+figlet "XLXD Reflector"
 service xlxd start
 systemctl restart apache2
 echo "------------------------------------------------------------------------------"
