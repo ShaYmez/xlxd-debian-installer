@@ -70,15 +70,15 @@ else
    echo "Downloading and compiling LX4JL XLXD... "
    echo "------------------------------------------------------------------------------"
    cd $XLXINSTDIR
-   figlet "XLXD Installer."
+   figlet "XLXD Like a PRO..."
    git clone $XLXDREPO
    cd $XLXINSTDIR/xlxd/src
-   make clean
    sleep 5
    echo "------------------------------------------------------------------------------"
    echo "Edit your configuration"
    sleep 5
    nano main.h
+   make clean
    make
    make install
 fi
@@ -140,7 +140,7 @@ else
    exit 0
 fi
 clear
-echo "Starting XLXD.....
+echo "Starting XLXD....."
 sleep 2
 figlet "XLXD Reflector"
 service xlxd start
