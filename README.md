@@ -7,9 +7,11 @@ This script simply runs through the official install instructions found [HERE](h
 At the start of 2020 a new version of XLX was released that allows for native C4FM connections. This means it's even simpler to run a multi-mode reflector. XLX now natively supports DMR, D-Star, and C4FM. C4FM and DMR do not require any transcoding hardware (AMBE) to work together. If you plan on using D-Star with any of the other modes, you will need hardware AMBE chips.
 
 ## New Features 2021
-Debian 11 support
-Edit configuration during install
-HTTPS / SSL Support (Certbot)
+1. Ubuntu / Debian 11 support
+2. Edit configuration during install
+3 .HTTPS / SSL Support (Certbot)
+5. Support for IMRS
+6. Support for G3 Terminal Mode
 
 ### To Install:
 1. Have a fresh Debian 9 10 OR 11 computer ready and up to date.
