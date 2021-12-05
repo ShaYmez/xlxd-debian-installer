@@ -73,6 +73,11 @@ else
    git clone $XLXDREPO
    cd $XLXINSTDIR/xlxd/src
    make clean
+if [ $VERSION = 11 ]
+then
+   nano main.h
+else 
+   exit 0
    make
    make install
 fi
@@ -115,24 +120,24 @@ sed -i "s/ysf-xlxd/xlxd/g" /etc/apache2/sites-available/$XLXDOMAIN.conf
 chown -R www-data:www-data /var/www/xlxd/
 chown -R www-data:www-data /xlxd/
 a2ensite $XLXDOMAIN
-systemctl restart apache2
 if [ $VERSION = 11 ]
 then
     snap install core
     snap refresh core
     snap install --classic certbot
     ln -s /snap/bin/certbot /usr/bin/certbot
+    ufw allow http
+    ufw allow https
+    systemctl restart apache2
     certbot --apache
 else
    echo ""
-   echo "Ahh! Somthing went wrong with the cerbot application, your SSL certificate"
+   echo "Ahh! Somthing went wrong with the snapd cerbot app, your SSL certificate"
    echo "The output above is the only indication as to why it might have failed.  "
    echo "Run certbot --apache again to restart certbot installation"
    echo ""
    exit 0
 fi
-ufw allow http
-ufw allow https
 service xlxd start
 systemctl restart apache2
 echo "------------------------------------------------------------------------------"
