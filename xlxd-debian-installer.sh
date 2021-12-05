@@ -24,7 +24,7 @@ WEBDIR=/var/www/xlxd
 XLXINSTDIR=/root/reflector-install-files/xlxd
 DEP="wget git build-essential g++ apache2 php libapache2-mod-php php7.0-mbstring"
 DEP2="wget git build-essential g++ apache2 php libapache2-mod-php php7.3-mbstring"
-DEP3="wget git build-essential g++ apache2 php libapache2-mod-php php-curl php-json php-cgi snapd"
+DEP3="wget git build-essential g++ apache2 php libapache2-mod-php php-curl php-json php-cgi snapd figlet"
 VERSION=$(sed 's/\..*//' /etc/debian_version)
 clear
 echo ""
@@ -67,17 +67,18 @@ then
    echo "It looks like you have already compiled XLXD. If you want to install/complile xlxd again, delete the directory '/root/reflector-install-files/xlxd' and run this script again. "
    exit 0
 else
-   echo "Downloading and compiling xlxd... "
+   echo "Downloading and compiling LX4JL XLXD... "
    echo "------------------------------------------------------------------------------"
    cd $XLXINSTDIR
+   figlet "XLXD Installer.
    git clone $XLXDREPO
    cd $XLXINSTDIR/xlxd/src
    make clean
-if [ $VERSION = 11 ]
-then
+   sleep 5
+   echo "------------------------------------------------------------------------------"
+   echo "Edit your configuration"
+   sleep 5
    nano main.h
-else 
-   exit 0
    make
    make install
 fi
@@ -138,6 +139,10 @@ else
    echo ""
    exit 0
 fi
+clear
+echo "Starting XLXD.....
+sleep 2
+figlet "XLXD Reflector
 service xlxd start
 systemctl restart apache2
 echo "------------------------------------------------------------------------------"
