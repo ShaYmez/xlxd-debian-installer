@@ -141,7 +141,7 @@ a2ensite $XLXDOMAIN
 #   exit 0
 #fi
 # end of certbot
-clear
+# clear
 echo "Starting XLXD....."
 sleep 2
 figlet "XLXD Reflector"
