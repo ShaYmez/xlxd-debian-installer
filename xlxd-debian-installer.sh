@@ -57,7 +57,7 @@ then
     apt-get -y install $DEP2
 elif [ $VERSION = 11 ]
 then
-    apt install -y $DEP3
+    apt-get install -y $DEP3
 fi
 
 echo "------------------------------------------------------------------------------"
