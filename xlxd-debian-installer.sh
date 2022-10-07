@@ -24,7 +24,7 @@ WEBDIR=/var/www/xlxd
 XLXINSTDIR=/root/reflector-install-files/xlxd
 DEP="wget git build-essential g++ apache2 php libapache2-mod-php php7.0-mbstring"
 DEP2="wget git build-essential g++ apache2 php libapache2-mod-php php7.3-mbstring"
-DEP3="wget git build-essential g++ apache2 php libapache2-mod-php php-curl php-json php-cgi snapd figlet"
+DEP3="wget git build-essential g++ apache2 php libapache2-mod-php php-curl php-json php-cgi php7.4-mbstring snapd figlet"
 VERSION=$(sed 's/\..*//' /etc/debian_version)
 clear
 echo ""
@@ -104,10 +104,10 @@ echo "--------------------------------------------------------------------------
 echo "Copying web dashboard files and updating init script... "
 cp -R $XLXINSTDIR/xlxd/dashboard/* /var/www/xlxd/
 cp $XLXINSTDIR/xlxd/scripts/xlxd /etc/init.d/xlxd
-sed -i "s/XLX999 192.168.1.240 127.0.0.1/$XRFNUM $LOCAL_IP 127.0.0.1/g" /etc/init.d/xlxd
+sed -i "s/XLX248 192.168.1.240 127.0.0.1/$XRFNUM $LOCAL_IP 127.0.0.1/g" /etc/init.d/xlxd
 update-rc.d xlxd defaults
 # Delaying startup time
-mv /etc/rc3.d/S01xlxd /etc/rc3.d/S10xlxd
+# mv /etc/rc3.d/S01xlxd /etc/rc3.d/S10xlxd ##Disabling as its not really needed.
 echo "Updating XLXD Config file... "
 XLXCONFIG=/var/www/xlxd/pgs/config.inc.php
 sed -i "s/your_email/$EMAIL/g" $XLXCONFIG
