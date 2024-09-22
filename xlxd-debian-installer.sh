@@ -25,7 +25,7 @@ XLXINSTDIR=/root/reflector-install-files/xlxd
 DEP="wget git build-essential g++ apache2 php libapache2-mod-php php7.0-mbstring"
 DEP2="wget git build-essential g++ apache2 php libapache2-mod-php php7.3-mbstring"
 DEP3="wget git build-essential g++ apache2 php libapache2-mod-php php-curl php-json php-cgi php7.4-mbstring snapd figlet"
-APPS="git git-core apache2 php libapache2-mod-php php-cli php-xml php-mbstring php-curl build-essential"
+APPS="git git-core apache2 php libapache2-mod-php php-cli php-xml php-mbstring php-curl build-essential snapd figlet"
 VERSION=$(sed 's/\..*//' /etc/debian_version)
 clear
 echo ""
