@@ -12,11 +12,11 @@ fi
 if [ ! -e "/etc/debian_version" ]
 then
   echo ""
-  echo "This script is only tested in Debian 9 and x64 cpu Arch. "
+  echo "This script is only tested on Debian and x64 CPU Arch. but XLX will work on most ANY Linux distro. "
   exit 0
 fi
 DIRDIR=$(pwd)
-LOCAL_IP=$(ip a | grep inet | grep "eth0\|en" | awk '{print $2}' | tr '/' ' ' | awk '{print $1}')
+LOCAL_IP=$(hostname -I | awk '{print $1}')
 INFREF=https://n5amd.com/digital-radio-how-tos/create-xlx-xrf-d-star-reflector/
 XLXDREPO=https://github.com/LX3JL/xlxd.git
 DMRIDURL=http://xlxapi.rlx.lu/api/exportdmr.php
@@ -25,6 +25,7 @@ XLXINSTDIR=/root/reflector-install-files/xlxd
 DEP="wget git build-essential g++ apache2 php libapache2-mod-php php7.0-mbstring"
 DEP2="wget git build-essential g++ apache2 php libapache2-mod-php php7.3-mbstring"
 DEP3="wget git build-essential g++ apache2 php libapache2-mod-php php-curl php-json php-cgi php7.4-mbstring snapd figlet"
+APPS="git git-core apache2 php libapache2-mod-php php-cli php-xml php-mbstring php-curl build-essential"
 VERSION=$(sed 's/\..*//' /etc/debian_version)
 clear
 echo ""
@@ -47,18 +48,19 @@ echo "Making install directories and installing dependicies...."
 echo "------------------------------------------------------------------------------"
 mkdir -p $XLXINSTDIR
 mkdir -p $WEBDIR
-apt-get update
-if [ $VERSION = 9 ]
-then
-    apt-get -y install $DEP
-    a2enmod php7.0
-elif [ $VERSION = 10 ]
-then
-    apt-get -y install $DEP2
-elif [ $VERSION = 11 ]
-then
-    apt-get install -y $DEP3
-fi
+apt-get -y update
+apt-get -y install $APPS
+#if [ $VERSION = 9 ]
+#then
+#    apt-get -y install $DEP
+#    a2enmod php7.0
+#elif [ $VERSION = 10 ]
+#then
+#    apt-get -y install $DEP2
+#elif [ $VERSION = 11 ]
+#then
+#    apt-get -y install $DEP3
+#fi
 
 echo "------------------------------------------------------------------------------"
 if [ -e $XLXINSTDIR/xlxd/src/xlxd ]
@@ -121,6 +123,7 @@ sed -i "s/ysf-xlxd/xlxd/g" /etc/apache2/sites-available/$XLXDOMAIN.conf
 chown -R www-data:www-data /var/www/xlxd/
 chown -R www-data:www-data /xlxd/
 a2ensite $XLXDOMAIN
+a2dissite 000-default
 # revert certbot make this an option! for another day
 #if [ $VERSION = 11 ]
 #then
