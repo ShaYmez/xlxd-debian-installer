@@ -1,4 +1,5 @@
 #!/bin/bash
+#v1.4 2024
 # A tool to install xlxd, your own D-Star Reflector.
 # For more information, please visit: https://n5amd.com
 #Lets begin-------------------------------------------------------------------------------------------------
